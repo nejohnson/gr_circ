@@ -1,0 +1,105 @@
+## RESISTORS #############################################
+
+# Horizontal resistors #
+
+define resistorR {
+  linethick = 1
+  right
+  line right 0.2
+  box ht 0.15 wid 0.4
+  if ($2 != "") then {
+    $1 at last box.n + (0,0.25)
+    $2 at last box.n + (0,0.1)
+  } else {
+    $1 at last box.n + (0,0.1)
+  }
+  line from last box.e right 0.2
+}
+
+define resistorL {
+  linethick = 1
+  left
+  line left 0.2
+  box ht 0.15 wid 0.4
+  if ($2 != "") then {
+    $1 at last box.n + (0,0.25)
+    $2 at last box.n + (0,0.1)
+  } else {
+    $1 at last box.n + (0,0.1)
+  }
+  line from last box.w left 0.2
+}
+
+define resistorH {
+  if ($3 == "r") then {
+    resistorR($1,$2,$3)
+  } else {
+    resistorL($1,$2,$3)
+  }
+}
+
+# Vertical resistors #
+
+define resistorD {
+  linethick = 1
+  down
+  line down 0.2
+  box ht 0.4 wid 0.15
+  if ($3 == "dl") then {
+    if ($2 != "") then {
+      $1 $2 at last box.w - (0.15,0)
+    } else {
+      $1 at last box.w - (0.15,0)
+    }
+  } else {
+    if ($2 != "") then {
+      $1 $2 at last box.e + (0.15,0)
+    } else {
+      $1 at last box.e + (0.15,0)
+    }
+  }
+  line from last box.s down 0.2
+}
+
+define resistorU {
+  linethick = 1
+  up
+  line up 0.2
+  box ht 0.4 wid 0.15
+  if ($3 == "ul") then {
+    if ($2 != "") then {
+      $1 $2 at last box.w - (0.2,0)
+    } else {
+      $1 at last box.w - (0.15,0)
+    }
+  } else {
+    if ($2 != "") then {
+      $1 $2 at last box.e + (0.15,0)
+    } else {
+      $1 at last box.e + (0.15,0)
+    }
+  }
+  line from last box.n up 0.2
+}
+
+define resistorV {
+  if ($3 == "d" || $3 == "dl") then {
+    resistorD($1,$2,$3)
+  } else {
+    resistorU($1,$2,$3)
+  }
+}
+
+# Interface #
+
+define resistor {
+# $1 = name, "R1"
+# $2 = value, "10k"
+# $3 = orientation, "l","r","u","d"
+
+  if ($3 == "r" || $3 == "l") then {
+    resistorH($1,$2,$3)
+  } else {
+    resistorV($1,$2,$3)
+  }
+}
