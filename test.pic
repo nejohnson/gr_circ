@@ -1,5 +1,6 @@
+Test network:
+.
 .PS
-
 copy "gr_circ.pic"
 
 # Test
@@ -27,5 +28,40 @@ junc
 {wire(2);terminal("V3")}
 R4: resistor("R4", "1\(*W", "ul")
 
+.PE
+
+A small RC network:
+.
+.PS
+
+right
+terminal("")
+wire(2)
+junc
+{ up
+  wire(4)
+  right
+  resistor("R1","","r")
+  wire(2)
+  capacitor("C1","","r")
+  down
+  wire(4)
+}
+{ down
+  wire(4)
+  right
+  wire(1)
+  capacitor("C2","","r")
+  wire(9)
+  up
+  wire(4)
+}
+wire(5)
+resistor("R2","","r")
+wire(3)
+junc
+wire(2)
+terminal("")
 
 .PE
+
