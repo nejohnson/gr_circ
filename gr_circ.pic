@@ -1,0 +1,23 @@
+##########################################################
+# Circuit Macros for Groff/Pic
+##########################################################
+
+# A grid system of 0.1" per unit is used. Components are
+# dimensioned in multiples of two units.
+# All components fit into this grid, and wire units can
+# be used to connect components that have different
+# dimensions (e.g., resistors and capacitors).
+#
+# To use, insert this section at the start of your document:
+#
+# .PS
+# copy "gr_circ.pic"
+# .PE
+
+.PS
+copy "resistor.pic"
+copy "capacitor.pic"
+copy "wire.pic"
+.PE
+
+##########################################################

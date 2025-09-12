@@ -1,20 +1,31 @@
 .PS
 
-copy "resistor.pic"
-copy "wire.pic"
-
-
-
+copy "gr_circ.pic"
 
 # Test
 
+right;
+terminal("V1"); wire(2)
 junc
 R1: resistor("R1", "1G", "r")
 junc
+{ right
+  wire(3);capacitor("C1", "1n", "r");wire(1)
+  junc
+  {wire(2);terminal("V2")}
+  down
+  wire(1);capacitor("C2", "10n", "d");wire(1)
+  junc;
+  {right;wire(2);terminal("V4")}
+  left;
+  wire(1);capacitor("C3", "1u", "l");wire(3)
+  }
 R2: resistor("R2", "1M",  "d")
 junc
 R3: resistor("R3", "1k", "l")
 junc
+{wire(2);terminal("V3")}
 R4: resistor("R4", "1\(*W", "ul")
+
 
 .PE

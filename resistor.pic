@@ -1,6 +1,34 @@
 ## RESISTORS #############################################
 
-# Horizontal resistors #
+# ========================================================
+# Interface
+# ========================================================
+
+define resistor {
+# $1 = name, "R1"
+# $2 = value, "10k"
+# $3 = orientation, "l","r","u","d"
+
+  if ($3 == "r" || $3 == "l") then {
+    resistorH($1,$2,$3)
+  } else {
+    resistorV($1,$2,$3)
+  }
+}
+
+# ========================================================
+# Horizontal resistors
+# ========================================================
+
+define resistorH {
+  if ($3 == "r") then {
+    resistorR($1,$2,$3)
+  } else {
+    resistorL($1,$2,$3)
+  }
+}
+
+# Horizontal rightwards ----------------------------------
 
 define resistorR {
   linethick = 1
@@ -16,6 +44,8 @@ define resistorR {
   line from last box.e right 0.2
 }
 
+# Horizontal leftwards -----------------------------------
+
 define resistorL {
   linethick = 1
   left
@@ -30,15 +60,19 @@ define resistorL {
   line from last box.w left 0.2
 }
 
-define resistorH {
-  if ($3 == "r") then {
-    resistorR($1,$2,$3)
+# ========================================================
+# Vertical resistors
+# ========================================================
+
+define resistorV {
+  if ($3 == "d" || $3 == "dl") then {
+    resistorD($1,$2,$3)
   } else {
-    resistorL($1,$2,$3)
+    resistorU($1,$2,$3)
   }
 }
 
-# Vertical resistors #
+# Vertical downwards -------------------------------------
 
 define resistorD {
   linethick = 1
@@ -61,6 +95,8 @@ define resistorD {
   line from last box.s down 0.2
 }
 
+# Vertical upwards ---------------------------------------
+
 define resistorU {
   linethick = 1
   up
@@ -82,24 +118,4 @@ define resistorU {
   line from last box.n up 0.2
 }
 
-define resistorV {
-  if ($3 == "d" || $3 == "dl") then {
-    resistorD($1,$2,$3)
-  } else {
-    resistorU($1,$2,$3)
-  }
-}
-
-# Interface #
-
-define resistor {
-# $1 = name, "R1"
-# $2 = value, "10k"
-# $3 = orientation, "l","r","u","d"
-
-  if ($3 == "r" || $3 == "l") then {
-    resistorH($1,$2,$3)
-  } else {
-    resistorV($1,$2,$3)
-  }
-}
+##########################################################

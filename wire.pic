@@ -14,7 +14,15 @@ define junc {
 
 define wire {
   linethick = 1
-  line $1
+  line 0.1*$1
 }
 
+##########################################################
 
+# Simple terminal
+
+define terminal {
+  linethick = 1
+  circle rad 0.05
+  {$1 at last circle.n+(0,0.1)}
+}

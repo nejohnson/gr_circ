@@ -1,0 +1,129 @@
+## CAPACITORS ############################################
+
+# ========================================================
+# Interface
+# ========================================================
+
+define capacitor {
+# $1 = name, "C1"
+# $2 = value, "1n"
+# $3 = orientation, "l","r","u","d"
+
+  if ($3 == "r" || $3 == "l") then {
+    capacitorH($1,$2,$3)
+  } else {
+    capacitorV($1,$2,$3)
+  }
+}
+
+# ========================================================
+# Horizontal capacitors
+# ========================================================
+
+define capacitorH {
+  if ($3 == "r") then {
+    capacitorR($1,$2,$3)
+  } else {
+    capacitorL($1,$2,$3)
+  }
+}
+
+# Horizontal rightwards ----------------------------------
+
+define capacitorR {
+  linethick = 1
+  right
+  line right 0.275
+  { move up 0.1; line down 0.2; move up 0.1 }
+  box invis ht 0.1 wid 0.05
+  { move up 0.1; line down 0.2; move up 0.1 }
+  if ($2 != "") then {
+    $1 at last box.n + (0,0.30)
+    $2 at last box.n + (0,0.15)
+  } else {
+    $1 at last box.n + (0,0.15)
+  }
+  line from last box.e right 0.275
+}
+
+# Horizontal leftwards -----------------------------------
+
+define capacitorL {
+  linethick = 1
+  left
+  line left 0.275
+  { move up 0.1; line down 0.2; move up 0.1 }
+  box invis ht 0.1 wid 0.05
+  { move up 0.1; line down 0.2; move up 0.1 }
+  if ($2 != "") then {
+    $1 at last box.n + (0,0.30)
+    $2 at last box.n + (0,0.15)
+  } else {
+    $1 at last box.n + (0,0.15)
+  }
+  line from last box.w left 0.275
+}
+
+# ========================================================
+# Vertical capacitors
+# ========================================================
+
+define capacitorV {
+  if ($3 == "d" || $3 == "dl") then {
+    capacitorD($1,$2,$3)
+  } else {
+    capacitorU($1,$2,$3)
+  }
+}
+
+# Vertical downwards -------------------------------------
+
+define capacitorD {
+  linethick = 1
+  down
+  line down 0.275
+  { move left 0.1; line right 0.2; move left 0.1 }
+  box invis ht 0.05 wid 0.1
+  { move left 0.1; line right 0.2; move left 0.1 }
+  if ($3 == "dl") then {
+    if ($2 != "") then {
+      $1 $2 at last box.w - (0.2,0)
+    } else {
+      $1 at last box.w - (0.2,0)
+    }
+  } else {
+    if ($2 != "") then {
+      $1 $2 at last box.e + (0.2,0)
+    } else {
+      $1 at last box.e + (0.2,0)
+    }
+  }
+  line from last box.s down 0.275
+}
+
+# Vertical upwards ---------------------------------------
+
+define capacitorU {
+  linethick = 1
+  up
+  line up 0.275
+  { move left 0.1; line right 0.2; move left 0.1 }
+  box invis ht 0.05 wid 0.1
+  { move left 0.1; line right 0.2; move left 0.1 }
+  if ($3 == "ul") then {
+    if ($2 != "") then {
+      $1 $2 at last box.w - (0.2,0)
+    } else {
+      $1 at last box.w - (0.2,0)
+    }
+  } else {
+    if ($2 != "") then {
+      $1 $2 at last box.e + (0.2,0)
+    } else {
+      $1 at last box.e + (0.2,0)
+    }
+  }
+  line from last box.n up 0.275
+}
+
+##########################################################
