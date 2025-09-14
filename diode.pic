@@ -1,0 +1,190 @@
+## DIODES ################################################
+
+# ========================================================
+# Interface
+# ========================================================
+
+define diode {
+# $1 = name, "D1"
+# $2 = value, "1N4148"
+# $3 = orientation, "l","r","u","d"
+
+  if ($3 == "r" || $3 == "l") then {
+    diodeH($1,$2,$3,"")
+  } else {
+    diodeV($1,$2,$3,"")
+  }
+}
+
+# ========================================================
+# Horizontal diodes
+# ========================================================
+
+define diodeH {
+  if ($3 == "r") then {
+    diodeR($1,$2,$3,$4)
+  } else {
+    diodeL($1,$2,$3,$4)
+  }
+}
+
+# Horizontal rightwards ----------------------------------
+
+define diodeR {
+  linethick = 1
+  right
+  arrow right 0.3 width 0.2 height 0.1
+  {left; box wid 0.1 ht 0.1 invis}
+  move up 0.1
+  line down 0.2
+  move up 0.1
+  {
+    if ($2 != "") then {
+      $1 at last box.n + (0,0.30)
+      $2 at last box.n + (0,0.15)
+    } else {
+      $1 at last box.n + (0,0.15)
+    }
+  }
+  {
+    if($4=="z") then {
+      line left 0.03 from last line.s
+    }  
+    if($4=="s") then {
+      line right 0.03 from last line.e
+      line down 0.03
+      line left 0.03 from 3rd last line.s
+      line up 0.03
+    }
+  }
+  line right 0.2
+}
+
+# Horizontal leftwards -----------------------------------
+
+define diodeL {
+  linethick = 1
+  left
+  arrow left 0.3 width 0.2 height 0.1
+  {right; box wid 0.1 ht 0.1 invis}
+  move up 0.1
+  line down 0.2
+  move up 0.1
+  {
+    if ($2 != "") then {
+      $1 at last box.n + (0,0.30)
+      $2 at last box.n + (0,0.15)
+    } else {
+      $1 at last box.n + (0,0.15)
+    }
+  }
+  {
+    if($4=="z") then {
+      line right 0.03 from last line.e
+    }  
+    if($4=="s") then {
+      line right 0.03 from last line.e
+      line down 0.03
+      line left 0.03 from 3rd last line.s
+      line up 0.03
+    }
+  }
+  line left 0.2
+}
+
+# ========================================================
+# Vertical diodes
+# ========================================================
+
+define diodeV {
+  if ($3 == "d") then {
+    diodeD($1,$2,$3,$4)
+  } else {
+    diodeU($1,$2,$3,$4)
+  }
+}
+
+# Vertical downwards -------------------------------------
+
+define diodeD {
+  linethick = 1
+  down
+  arrow 0.3 width 0.2 height 0.1
+  {up; box wid 0.1 ht 0.1 invis}
+  {move left 0.1; line right 0.2; move left 0.1}
+  {
+    if ($2 != "") then {
+      box invis $1 $2 with .w at last box.c
+    } else {
+      $1 at last box.e + (0.2,0)
+    }
+  }
+  {
+    if($4=="z") then {
+      line up 0.03 from last line.e
+    }
+    if($4=="s") then {
+      line down 0.03 from last line.e
+      line left 0.03
+      line up 0.03 from 3rd last line.s
+      line right 0.03
+    }
+  }
+  line 0.2
+}
+
+# Vertical upwards ---------------------------------------
+
+define diodeU {
+  linethick = 1
+  up
+  arrow 0.3 width 0.2 height 0.1
+  {down; box wid 0.1 ht 0.1 invis}
+  {move left 0.1; line right 0.2; move left 0.1}
+  {
+    if ($2 != "") then {
+      box invis $1 $2 with .w at last box.c
+    } else {
+      $1 at last box.e + (0.2,0)
+    }
+  }
+  {
+    if($4=="z") then {
+      line down 0.03 from last line.e
+    }  
+    if($4=="s") then {
+      line down 0.03 from last line.e
+      line left 0.03
+      line up 0.03 from 3rd last line.s
+      line right 0.03
+    }
+  }
+  line 0.2
+}
+
+##########################################################
+
+define zenerdiode {
+# $1 = name, "D1"
+# $2 = value, "1N4148"
+# $3 = orientation, "l","r","u","d"
+
+  if ($3 == "r" || $3 == "l") then {
+    diodeH($1,$2,$3,"z")
+  } else {
+    diodeV($1,$2,$3,"z")
+  }
+}
+
+
+define schottkydiode {
+# $1 = name, "D1"
+# $2 = value, "1N4148"
+# $3 = orientation, "l","r","u","d"
+
+  if ($3 == "r" || $3 == "l") then {
+    diodeH($1,$2,$3,"s")
+  } else {
+    diodeV($1,$2,$3,"s")
+  }
+}

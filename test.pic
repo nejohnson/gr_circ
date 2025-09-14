@@ -65,3 +65,31 @@ terminal("")
 
 .PE
 
+Semiconductors
+
+Diodes
+
+.PS
+
+diode("D1", "1N4148", "d")
+right; wire(8);
+diode("D2", "1N4001", "u")
+right; wire(8)
+zenerdiode("D3", "BZX85C", "d")
+right; wire(8)
+zenerdiode("D3", "BZX85C", "u")
+zenerdiode("D3", "BZX85C", "r")
+down; wire(10)
+zenerdiode("D3", "BZX85C", "l")
+left; move 2.4;
+schottkydiode("D4","BAT53","d")
+right; move 0.8
+schottkydiode("D4","BAT53","u")
+left; move 0.8
+down; move 1
+schottkydiode("D4","BAT53","r")
+move 0.6
+schottkydiode("D4","BAT53","l")
+
+.PE
+

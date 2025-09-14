@@ -33,7 +33,7 @@ define capacitorH {
 define capacitorR {
   linethick = 1
   right
-  line right 0.275
+  line 0.275
   { move up 0.1; line down 0.2; move up 0.1 }
   box invis ht 0.1 wid 0.05
   { move up 0.1; line down 0.2; move up 0.1 }
@@ -43,7 +43,7 @@ define capacitorR {
   } else {
     $1 at last box.n + (0,0.15)
   }
-  line from last box.e right 0.275
+  line from last box.e 0.275
 }
 
 # Horizontal leftwards -----------------------------------
@@ -51,7 +51,7 @@ define capacitorR {
 define capacitorL {
   linethick = 1
   left
-  line left 0.275
+  line 0.275
   { move up 0.1; line down 0.2; move up 0.1 }
   box invis ht 0.1 wid 0.05
   { move up 0.1; line down 0.2; move up 0.1 }
@@ -61,7 +61,7 @@ define capacitorL {
   } else {
     $1 at last box.n + (0,0.15)
   }
-  line from last box.w left 0.275
+  line from last box.w 0.275
 }
 
 # ========================================================
@@ -81,7 +81,7 @@ define capacitorV {
 define capacitorD {
   linethick = 1
   down
-  line down 0.275
+  line 0.275
   { move left 0.1; line right 0.2; move left 0.1 }
   box invis ht 0.05 wid 0.1
   { move left 0.1; line right 0.2; move left 0.1 }
@@ -98,7 +98,7 @@ define capacitorD {
       $1 at last box.e + (0.2,0)
     }
   }
-  line from last box.s down 0.275
+  line from last box.s 0.275
 }
 
 # Vertical upwards ---------------------------------------
@@ -106,7 +106,7 @@ define capacitorD {
 define capacitorU {
   linethick = 1
   up
-  line up 0.275
+  line 0.275
   { move left 0.1; line right 0.2; move left 0.1 }
   box invis ht 0.05 wid 0.1
   { move left 0.1; line right 0.2; move left 0.1 }
@@ -123,7 +123,7 @@ define capacitorU {
       $1 at last box.e + (0.2,0)
     }
   }
-  line from last box.n up 0.275
+  line from last box.n 0.275
 }
 
 ##########################################################
