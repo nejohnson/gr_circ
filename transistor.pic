@@ -1,0 +1,60 @@
+## TRANSISTORS ###########################################
+
+# ========================================================
+# Interface
+# ========================================================
+
+define npn {
+# $1 = name, Q1
+# $2 = value, "BC108"
+# $3 = orientation, "l","r"
+
+  if ($3 == "r") then {
+    npnR($1,$2,$3)
+  } else {
+    npnL($1,$2,$3)
+  }
+}
+
+define npnR {
+  linethick = 1
+$1: [
+    right
+    { B: box invis wid 0 ht 0 }
+    line 0.2
+    box wid 0.03 ht 0.3 fill 1 with .c at Here
+    circle thick 1.5 rad 0.25 with .c at 2nd box .c + (0.05,0)
+    { line from last box.e to last circle.ne
+      C: box invis wid 0 ht 0
+    }
+    { arrow wid 0.1 from 2nd last box.e to last circle.se
+      E: box invis wid 0 ht 0
+    }
+    "$1" at last circle.e + (0.1,0.1) ljust
+    if($2!="") then {
+      $2 at last circle.e + (0.1,-0.1) ljust
+    }
+  ]
+}
+
+define npnL {
+  linethick = 1
+$1: [
+    left
+    { B: box invis wid 0 ht 0 }
+    line 0.2
+    box wid 0.03 ht 0.3 fill 1 with .c at Here
+    circle thick 1.5 rad 0.25 with .c at 2nd box .c - (0.05,0)
+    { line from last box.e to last circle.nw
+      C: box invis wid 0 ht 0
+    }
+    { arrow wid 0.1 from 2nd last box.e to last circle.sw
+      E: box invis wid 0 ht 0
+    }
+    "$1" at last circle.w + (-0.1,0.1) rjust
+    if($2!="") then {
+      $2 at last circle.w + (-0.1,-0.1) rjust
+    }
+
+  ]
+}
