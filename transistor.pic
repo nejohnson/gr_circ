@@ -11,8 +11,15 @@ define npn {
 
   if ($3 == "r") then {
     npnR($1,$2,$3)
-  } else {
+  }
+  if ($3 == "l") then {
     npnL($1,$2,$3)
+  }
+  if ($3 == "u") then {
+    npnU($1,$2,$3)
+  }
+  if ($3 == "d") then {
+    npnD($1,$2,$3)
   }
 }
 
@@ -24,15 +31,16 @@ $1: [
     line 0.2
     box wid 0.03 ht 0.3 fill 1 with .c at Here
     circle thick 1.5 rad 0.25 with .c at 2nd box .c + (0.05,0)
-    { line from last box.e to last circle.ne
+    { line from last box.c right 0.2 up 0.2
       C: box invis wid 0 ht 0
     }
-    { arrow wid 0.1 from 2nd last box.e to last circle.se
+    { arrow wid 0.1 from 2nd last box.c right 0.2 down 0.2
       E: box invis wid 0 ht 0
     }
-    "$1" at last circle.e + (0.1,0.1) ljust
-    if($2!="") then {
-      $2 at last circle.e + (0.1,-0.1) ljust
+    { "$1" at last circle.e + (0.1,0.1) ljust
+      if($2!="") then {
+        $2 at last circle.e + (0.1,-0.1) ljust
+      }
     }
   ]
 }
@@ -45,16 +53,63 @@ $1: [
     line 0.2
     box wid 0.03 ht 0.3 fill 1 with .c at Here
     circle thick 1.5 rad 0.25 with .c at 2nd box .c - (0.05,0)
-    { line from last box.e to last circle.nw
+    { line from last box.c left 0.2 up 0.2
       C: box invis wid 0 ht 0
     }
-    { arrow wid 0.1 from 2nd last box.e to last circle.sw
+    { arrow wid 0.1 from 2nd last box.c left 0.2 down 0.2
       E: box invis wid 0 ht 0
     }
-    "$1" at last circle.w + (-0.1,0.1) rjust
-    if($2!="") then {
-      $2 at last circle.w + (-0.1,-0.1) rjust
+    {
+      "$1" at last circle.w + (-0.1,0.1) rjust
+      if($2!="") then {
+        $2 at last circle.w + (-0.1,-0.1) rjust
+      }
     }
+  ]
+}
 
+define npnU {
+  linethick = 1
+$1: [
+    up
+    { B: box invis wid 0 ht 0 }
+    line 0.2
+    box wid 0.3 ht 0.03 fill 1 with .c at Here
+    circle thick 1.5 rad 0.25 with .c at 2nd box .c + (0, 0.05)
+    { line from last box.c left 0.2 up 0.2
+      C: box invis wid 0 ht 0
+    }
+    { arrow wid 0.1 from 2nd last box.c right 0.2 up 0.2
+      E: box invis wid 0 ht 0
+    }
+    {
+      "$1" at last circle.w + (-0.1,0.1) rjust
+      if($2!="") then {
+        $2 at last circle.w + (-0.1,-0.1) rjust
+      }
+    }
+  ]
+}
+
+define npnD {
+  linethick = 1
+$1: [
+    down
+    { B: box invis wid 0 ht 0 }
+    line 0.2
+    box wid 0.3 ht 0.03 fill 1 with .c at Here
+    circle thick 1.5 rad 0.25 with .c at 2nd box .c - (0, 0.05)
+    { line from last box.c right 0.2 down 0.2
+      C: box invis wid 0 ht 0
+    }
+    { arrow wid 0.1 from 2nd last box.c left 0.2 down 0.2
+      E: box invis wid 0 ht 0
+    }
+    {
+      "$1" at last circle.w + (-0.1,0.1) rjust
+      if($2!="") then {
+        $2 at last circle.w + (-0.1,-0.1) rjust
+      }
+    }
   ]
 }
