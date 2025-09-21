@@ -114,19 +114,29 @@ Transistors
 .PS
 
 showgrid(2,3)
-move down 0.2 right 0.2
-right
+move down 0.2 right 0.8
 {
-  npn(Q2,"BC108","l")
-  wire(2);junc;wire(2)
-  npn(Q1,"BC108","r")
+  left; wire(2)
+  npn(Q2,BC107,l)
 }
 junc
+{
+  right; wire(2)
+  npn(Q1,BC108,r)
+}
 down
-move 1
+wire(6)
+npn(Q3,BC109 TR,d)
+move 1.2
+npn(Q4,BC10A,u)
+wire(Q3.E, Q4.C)
+
+move to Q3.C - (0,0.2)
 junc
-npn(Q3,"BC108","u")
-move 0.5
-npn(Q4,"BC108","d")
+{ wire(Q3.C, Here ) }
+{ wire(Q4.E, Here ) }
+right
+wire(4)
+wire(Here, Q1.E)
 
 .PE

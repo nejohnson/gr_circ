@@ -11,10 +11,17 @@ define junc {
 # Wire #
 #
 # $1 = length
+#  or
+# $1 = start
+# $2 = end
 
 define wire {
   linethick = 1
-  line 0.1*$1
+  if("$2"=="") then {
+    line 0.1*$1
+  } else {
+    line from $1 to $2
+  }
 }
 
 ##########################################################
