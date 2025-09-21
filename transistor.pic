@@ -6,27 +6,30 @@
 
 define npn {
 # $1 = name, Q1
-# $2 = value, "BC108"
-# $3 = orientation, "l","r"
+# $2 = value, BC108
+# $3 = orientation, l,r
 
-  if ($3 == "r") then {
+  if ("$3" == "r") then {
     npnR($1,$2,$3)
   }
-  if ($3 == "l") then {
+  if ("$3" == "l") then {
     npnL($1,$2,$3)
   }
-  if ($3 == "u") then {
+  if ("$3" == "u") then {
     npnU($1,$2,$3)
   }
-  if ($3 == "d") then {
+  if ("$3" == "d") then {
     npnD($1,$2,$3)
   }
 }
 
+# ========================================================
+
 define npnR {
   linethick = 1
+  {
+  right
 $1: [
-    right
     { B: box invis wid 0 ht 0 }
     line 0.2
     box wid 0.03 ht 0.3 fill 1 with .c at Here
@@ -38,17 +41,21 @@ $1: [
       E: box invis wid 0 ht 0
     }
     { "$1" at last circle.e + (0.1,0.1) ljust
-      if($2!="") then {
-        $2 at last circle.e + (0.1,-0.1) ljust
+      if("$2" != "") then {
+        "$2" at last circle.e + (0.1,-0.1) ljust
       }
     }
   ]
+  }
 }
+
+# ========================================================
 
 define npnL {
   linethick = 1
+  {
+  left
 $1: [
-    left
     { B: box invis wid 0 ht 0 }
     line 0.2
     box wid 0.03 ht 0.3 fill 1 with .c at Here
@@ -61,17 +68,21 @@ $1: [
     }
     {
       "$1" at last circle.w + (-0.1,0.1) rjust
-      if($2!="") then {
-        $2 at last circle.w + (-0.1,-0.1) rjust
+      if("$2"!="") then {
+        "$2" at last circle.w + (-0.1,-0.1) rjust
       }
     }
   ]
+  }
 }
+
+# ========================================================
 
 define npnU {
   linethick = 1
+  {
+  up
 $1: [
-    up
     { B: box invis wid 0 ht 0 }
     line 0.2
     box wid 0.3 ht 0.03 fill 1 with .c at Here
@@ -83,18 +94,22 @@ $1: [
       E: box invis wid 0 ht 0
     }
     {
-      "$1" at last circle.w + (-0.1,0.1) rjust
-      if($2!="") then {
-        $2 at last circle.w + (-0.1,-0.1) rjust
+      "$1   " at last circle.w + (0,0.1) rjust
+      if("$2" != "") then {
+        "$2   " at last circle.w + (0,-0.1) rjust
       }
     }
   ]
+  }
 }
+
+# ========================================================
 
 define npnD {
   linethick = 1
+  {
+  down
 $1: [
-    down
     { B: box invis wid 0 ht 0 }
     line 0.2
     box wid 0.3 ht 0.03 fill 1 with .c at Here
@@ -106,10 +121,13 @@ $1: [
       E: box invis wid 0 ht 0
     }
     {
-      "$1" at last circle.w + (-0.1,0.1) rjust
-      if($2!="") then {
-        $2 at last circle.w + (-0.1,-0.1) rjust
+      "$1   " at last circle.w + (0, 0.1) rjust
+      if ( "$2" != "" ) then {
+        "$2   " at last circle.w + (0, -0.1) rjust
       }
     }
   ]
+  }
 }
+
+# ========================================================
