@@ -30,6 +30,21 @@ define wire {
 
 define terminal {
   linethick = 1
-  circle rad 0.05
-  {$1 at last circle.n+(0,0.1)}
+  TRM: box wid 0.1 ht 0.1 filled 1.0 with .c at Here
+  {
+    if("$2"=="" || "$2"=="r" || "$2"=="l" || "$2"=="d") then {
+      "$1" at TRM.n+(0,0.1)
+    } else {
+      "$1" at TRM.w-(0.1,0) rjust
+    }
+  }
+  move to TRM.c
 }
+
+
+
+
+
+
+
+

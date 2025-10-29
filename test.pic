@@ -13,29 +13,31 @@ Test network:
 
 # Test
 
-showgrid(3,1)
+showgrid(3,1.4)
+
+move down 0.4
 right;
-terminal("V1"); wire(2)
+terminal(Vin+,r); wire(3)
 junc
-R1: resistor("R1", "1G", "r")
+resistor(R1,1G,r)
 junc
 { right
-  wire(3);capacitor("C1", "1n", "r");wire(1)
+  wire(3);capacitor(C1,1n,r);wire(1)
   junc
-  {wire(2);terminal("V2")}
+  {wire(3);terminal(Vout+)}
   down
-  wire(1);capacitor("C2", "10n", "d");wire(1)
+  wire(1);capacitor(C2,10n,d);wire(1)
   junc;
-  {right;wire(2);terminal("V4")}
+  {right;wire(3);terminal(Vout-)}
   left;
-  wire(1);capacitor("C3", "1u", "l");wire(3)
+  wire(1);capacitor(C3,1u,l);wire(3)
   }
-R2: resistor("R2", "1M",  "d")
+resistor(R2,1M,d)
 junc
-R3: resistor("R3", "1k", "l")
+resistor(R3,1k,l)
 junc
-{wire(2);terminal("V3")}
-R4: resistor("R4", "1\(*W", "ul")
+{wire(3);terminal(Vin-)}
+resistor(R4,1,ul)
 
 .PE
 
@@ -45,17 +47,18 @@ A small RC network:
 .
 .PS
 showgrid(3,1)
+
 move down 0.6
 right
-terminal("")
+terminal()
 wire(2)
 junc
 { up
   wire(4)
   right
-  resistor("R1","","r")
+  resistor(R1,,r)
   wire(2)
-  capacitor("C1","","r")
+  capacitor(C1,,r)
   down
   wire(4)
 }
@@ -63,51 +66,63 @@ junc
   wire(4)
   right
   wire(1)
-  capacitor("C2","","r")
+  capacitor(C2,,r)
   wire(9)
   up
   wire(4)
 }
 wire(5)
-resistor("R2","","r")
+resistor(R2,,r)
 wire(3)
 junc
 wire(2)
-terminal("")
+terminal()
 
 .PE
 
 .\" ======================================================
-Semiconductors
+Semiconductors: 
 .\" ======================================================
 Diodes
 .\" ======================================================
 .PS
 
-showgrid(3,2)
+showgrid(6,2)
 
-diode("D1", "1N4148", "d")
-right; wire(8);
-diode("D2", "1N4001", "u")
-right; wire(8)
-zenerdiode("D3", "BZX85C", "d")
-right; wire(8)
-zenerdiode("D3", "BZX85C", "u")
-zenerdiode("D3", "BZX85C", "r")
-down; wire(10)
-zenerdiode("D3", "BZX85C", "l")
-left; move 2.4;
-schottkydiode("D4","BAT53","d")
-right; move 0.8
-schottkydiode("D4","BAT53","u")
-left; move 0.8
-down; move 1
-schottkydiode("D4","BAT53","r")
-move 0.6
-schottkydiode("D4","BAT53","l")
+move down 0.4
+right
+wire(2);diode(D1,1N4148,r);wire(2)
+down
+wire(2);diode(D2,1N4148,d);wire(4)
+left
+wire(2);diode(D3,1N4002,l);wire(2)
+up
+wire(4);diode(D4,1N4007,u);wire(2)
+
+move to (1.6,-0.4)
+right
+wire(4);zenerdiode(D3,BZX85C5V1,r);wire(4)
+down
+wire(2);zenerdiode(D4,BZX85C4V7,d);wire(4)
+left
+wire(4);zenerdiode(D5,BZX85C10,l);wire(4)
+up
+wire(4);zenerdiode(D6,BZX85C9V1,u);wire(2)
+
+move to (4,-0.4)
+right
+wire(2);schottkydiode(D7,BAT53,r);wire(2)
+down
+wire(2);schottkydiode(D8,BAT53,d);wire(4)
+left
+wire(2);schottkydiode(D9,BAT53,l);wire(2)
+up
+wire(4);schottkydiode(D10,BAT53,u);wire(2)
 
 .PE
 
+.\" ======================================================
+Semiconductors: 
 .\" ======================================================
 Transistors
 .\" ======================================================

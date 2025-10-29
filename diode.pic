@@ -4,16 +4,24 @@
 # Interface
 # ========================================================
 
-define diode {
-# $1 = name, "D1"
-# $2 = value, "1N4148"
-# $3 = orientation, "l","r","u","d"
+# $1 = name, D1
+# $2 = value, 1N4148
+# $3 = orientation, [lrud]
 
-  if ($3 == "r" || $3 == "l") then {
-    diodeH($1,$2,$3,"")
+define diode {
+  if ("$3" == "r" || "$3" == "l") then {
+    diodeH($1,$2,$3,$4)
   } else {
-    diodeV($1,$2,$3,"")
+    diodeV($1,$2,$3,$4)
   }
+}
+
+define zenerdiode {
+  diode($1,$2,$3,z)
+}
+
+define schottkydiode {
+  diode($1,$2,$3,s)
 }
 
 # ========================================================
@@ -21,7 +29,7 @@ define diode {
 # ========================================================
 
 define diodeH {
-  if ($3 == "r") then {
+  if ("$3" == "r") then {
     diodeR($1,$2,$3,$4)
   } else {
     diodeL($1,$2,$3,$4)
@@ -32,60 +40,82 @@ define diodeH {
 
 define diodeR {
   linethick = 1
+  {
   right
-  arrow right 0.27 width 0.15 height 0.15
-  {left; box wid 0.1 ht 0.1 invis}
-  {move up 0.075; line down 0.15; move up 0.075}
-  {
-    if ($2 != "") then {
-      $1 at last box.n + (0,0.30)
-      $2 at last box.n + (0,0.15)
-    } else {
-      $1 at last box.n + (0,0.15)
+$1: [
+    # Symbol
+    { A: box invis wid 0 ht 0 }
+    arrow 0.27 width 0.15 height 0.15
+    { left; BODY: box wid 0.15 ht 0.3 invis }
+    { move up 0.075; BAR: line down 0.15 }
+    line 0.13
+    { C: box invis wid 0 ht 0 }
+    
+    # Decorations
+    {
+      if("$4"=="z") then {
+        line left 0.03 from BAR.s
+      }  
+      if("$4"=="s") then {
+        line right 0.03 from BAR.e
+        line down 0.03
+        line left 0.03 from BAR.s
+        line up 0.03
+      }
     }
-  }
-  {
-    if($4=="z") then {
-      line left 0.03 from last line.s
-    }  
-    if($4=="s") then {
-      line right 0.03 from last line.e
-      line down 0.03
-      line left 0.03 from 3rd last line.s
-      line up 0.03
+    
+    # Labels
+    {
+      if ("$2" != "") then {
+        "$1" "$2" "" at BODY.n
+      } else {
+        "$1" at BODY.n
+      }
     }
+    ]
   }
-  line right 0.13
+  move to $1.C
 }
 
 # Horizontal leftwards -----------------------------------
 
 define diodeL {
   linethick = 1
+  {
   left
-  arrow left 0.27 width 0.15 height 0.15
-  {right; box wid 0.1 ht 0.1 invis}
-  {move up 0.075; line down 0.15; move up 0.075}
-  {
-    if ($2 != "") then {
-      $1 at last box.n + (0,0.30)
-      $2 at last box.n + (0,0.15)
-    } else {
-      $1 at last box.n + (0,0.15)
+$1: [
+    # Symbol
+    { A: box invis wid 0 ht 0 }
+    arrow 0.27 width 0.15 height 0.15
+    { right; BODY: box wid 0.15 ht 0.3 invis }
+    { move up 0.075; BAR: line down 0.15 }
+    line 0.13
+    { C: box invis wid 0 ht 0 }
+    
+    # Decorations
+    {
+      if("$4"=="z") then {
+        line right 0.03 from BAR.e
+      }  
+      if("$4"=="s") then {
+        line right 0.03 from BAR.e
+        line down 0.03
+        line left 0.03 from BAR.s
+        line up 0.03
+      }
     }
+
+    # Labels
+    {
+      if ("$2" != "") then {
+        "$1" "$2" "" at BODY.n
+      } else {
+        "$1" at BODY.n
+      }
+     }
+    ]
   }
-  {
-    if($4=="z") then {
-      line right 0.03 from last line.e
-    }  
-    if($4=="s") then {
-      line right 0.03 from last line.e
-      line down 0.03
-      line left 0.03 from 3rd last line.s
-      line up 0.03
-    }
-  }
-  line left 0.13
+  move to $1.C
 }
 
 # ========================================================
@@ -93,7 +123,7 @@ define diodeL {
 # ========================================================
 
 define diodeV {
-  if ($3 == "d") then {
+  if ("$3" == "d") then {
     diodeD($1,$2,$3,$4)
   } else {
     diodeU($1,$2,$3,$4)
@@ -104,83 +134,83 @@ define diodeV {
 
 define diodeD {
   linethick = 1
+  {
   down
-  arrow 0.27 width 0.15 height 0.15
-  {up; box wid 0.1 ht 0.15 invis}
-  {move left 0.075; line right 0.15; move left 0.75}
-  {
-    if ($2 != "") then {
-      box invis $1 $2 with .w at last box.c
-    } else {
-      $1 at last box.e + (0.2,0)
+$1: [
+    # Symbol
+    { A: box invis wid 0 ht 0 }
+    arrow 0.27 width 0.15 height 0.15
+    { up; BODY: box wid 0.15 ht 0.15 invis }
+    { move left 0.075; BAR: line right 0.15 }
+    line 0.13
+    { C: box invis wid 0 ht 0 }
+    
+    # Decorations
+    {
+      if("$4"=="z") then {
+        line up 0.03 from BAR.w
+      }
+      if("$4"=="s") then {
+        line down 0.03 from BAR.e
+        line left 0.03
+        line up 0.03 from BAR.s
+        line right 0.03
+      }
     }
+
+    # Labels
+    { if ("$2" != "") then {
+        " $1" at BODY.e + (0,0.08) ljust
+        " $2" at BODY.e + (0,-0.08) ljust
+      } else {
+        " $1" at BODY.e ljust
+      }
+    }
+    ]
   }
-  {
-    if($4=="z") then {
-      line up 0.03 from last line.e
-    }
-    if($4=="s") then {
-      line down 0.03 from last line.e
-      line left 0.03
-      line up 0.03 from 3rd last line.s
-      line right 0.03
-    }
-  }
-  line 0.13
+  move to $1.C
 }
 
 # Vertical upwards ---------------------------------------
 
 define diodeU {
   linethick = 1
+  {
   up
-  arrow 0.27 width 0.15 height 0.15
-  {down; box wid 0.1 ht 0.15 invis}
-  {move left 0.075; line right 0.15; move left 0.075}
-  {
-    if ($2 != "") then {
-      box invis $1 $2 with .w at last box.c
-    } else {
-      $1 at last box.e + (0.2,0)
+$1: [
+    # Symbol
+    { A: box invis wid 0 ht 0 }
+    arrow 0.27 width 0.15 height 0.15
+    { down; BODY: box wid 0.15 ht 0.15 invis }
+    { move left 0.075; BAR: line right 0.15 }
+    line 0.13
+    { C: box invis wid 0 ht 0 }
+    
+    # Decorations
+    {
+      if("$4"=="z") then {
+        line down 0.03 from BAR.e
+      }  
+      if("$4"=="s") then {
+        line down 0.03 from BAR.e
+        line left 0.03
+        line up 0.03 from BAR.s
+        line right 0.03
+      }
     }
-  }
-  {
-    if($4=="z") then {
-      line down 0.03 from last line.e
-    }  
-    if($4=="s") then {
-      line down 0.03 from last line.e
-      line left 0.03
-      line up 0.03 from 3rd last line.s
-      line right 0.03
+  
+    # Labels
+    { if ("$2" != "") then {
+        " $1" at BODY.e + (0,0.08) ljust
+        " $2" at BODY.e + (0,-0.08) ljust
+      } else {
+        " $1" at BODY.e ljust
+      }
     }
+    ]
   }
-  line 0.13
+  move to $1.C
 }
 
 ##########################################################
 
-define zenerdiode {
-# $1 = name, "D1"
-# $2 = value, "1N4148"
-# $3 = orientation, "l","r","u","d"
-
-  if ($3 == "r" || $3 == "l") then {
-    diodeH($1,$2,$3,"z")
-  } else {
-    diodeV($1,$2,$3,"z")
-  }
-}
-
-
-define schottkydiode {
-# $1 = name, "D1"
-# $2 = value, "1N4148"
-# $3 = orientation, "l","r","u","d"
-
-  if ($3 == "r" || $3 == "l") then {
-    diodeH($1,$2,$3,"s")
-  } else {
-    diodeV($1,$2,$3,"s")
-  }
-}

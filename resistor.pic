@@ -5,11 +5,11 @@
 # ========================================================
 
 define resistor {
-# $1 = name, "R1"
-# $2 = value, "10k"
-# $3 = orientation, "l","r","u","d"
+# $1 = name, R1
+# $2 = value, 10k
+# $3 = orientation, one of [lrud]
 
-  if ($3 == "r" || $3 == "l") then {
+  if ("$3" == "" || "$3" == "r" || "$3" == "l") then {
     resistorH($1,$2,$3)
   } else {
     resistorV($1,$2,$3)
@@ -21,43 +21,33 @@ define resistor {
 # ========================================================
 
 define resistorH {
-  if ($3 == "r") then {
-    resistorR($1,$2,$3)
+  if ("$3" == "" || "$3" == "r") then {
+    right
+    resistorRL($1,$2,$3)
   } else {
-    resistorL($1,$2,$3)
+    left
+    resistorRL($1,$2,$3)
   }
 }
 
-# Horizontal rightwards ----------------------------------
-
-define resistorR {
+define resistorRL {
   linethick = 1
-  right
-  line 0.2
-  box ht 0.15 wid 0.4
-  if ($2 != "") then {
-    $1 at last box.n + (0,0.25)
-    $2 at last box.n + (0,0.1)
-  } else {
-    $1 at last box.n + (0,0.1)
-  }
-  line from last box.e 0.2
-}
-
-# Horizontal leftwards -----------------------------------
-
-define resistorL {
-  linethick = 1
-  left
-  line 0.2
-  box ht 0.15 wid 0.4
-  if ($2 != "") then {
-    $1 at last box.n + (0,0.25)
-    $2 at last box.n + (0,0.1)
-  } else {
-    $1 at last box.n + (0,0.1)
-  }
-  line from last box.w 0.2
+$1: [
+    # Symbol
+    line 0.2
+    box ht 0.15 wid 0.4
+    { BODY: box invis ht 0.3 wid 0.4 with .c at last box.c }
+    line 0.2
+    
+    # Labels
+    {
+      if ("$2" != "") then {
+        "$1" "$2" "" at BODY.n
+      } else {
+        "$1" at BODY.n
+      }
+    }
+  ]
 }
 
 # ========================================================
@@ -65,57 +55,42 @@ define resistorL {
 # ========================================================
 
 define resistorV {
-  if ($3 == "d" || $3 == "dl") then {
-    resistorD($1,$2,$3)
+  if ("$3" == "d" || "$3" == "dl") then {
+    down
+    resistorUD($1,$2,$3)
   } else {
-    resistorU($1,$2,$3)
+    up
+    resistorUD($1,$2,$3)
   }
 }
 
-# Vertical downwards -------------------------------------
-
-define resistorD {
+define resistorUD {
   linethick = 1
-  down
-  line 0.2
-  box ht 0.4 wid 0.15
-  if ($3 == "dl") then {
-    if ($2 != "") then {
-      $1 $2 at last box.w - (0.15,0)
-    } else {
-      $1 at last box.w - (0.15,0)
+  #down
+$1: [
+    # Symbol
+    line 0.2
+    box ht 0.4 wid 0.15
+    { BODY: box invis ht 0.4 wid 0.4 with .c at last box.c }
+    line 0.2
+    
+    # Labels
+    {
+      if ("$3" == "dl" || "$3" == "ul") then {
+        if ("$2" != "") then {
+          "$1" "$2" at BODY.w
+        } else {
+          "$1" at BODY.w
+        }
+      } else {
+        if ("$2" != "") then {
+          "$1" "$2" at BODY.e
+        } else {
+          "$1" at BODY.e
+        }
+      }
     }
-  } else {
-    if ($2 != "") then {
-      $1 $2 at last box.e + (0.15,0)
-    } else {
-      $1 at last box.e + (0.15,0)
-    }
-  }
-  line from last box.s 0.2
-}
-
-# Vertical upwards ---------------------------------------
-
-define resistorU {
-  linethick = 1
-  up
-  line 0.2
-  box ht 0.4 wid 0.15
-  if ($3 == "ul") then {
-    if ($2 != "") then {
-      $1 $2 at last box.w - (0.2,0)
-    } else {
-      $1 at last box.w - (0.15,0)
-    }
-  } else {
-    if ($2 != "") then {
-      $1 $2 at last box.e + (0.15,0)
-    } else {
-      $1 at last box.e + (0.15,0)
-    }
-  }
-  line from last box.n 0.2
+  ]
 }
 
 ##########################################################
