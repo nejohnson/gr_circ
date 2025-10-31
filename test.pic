@@ -128,7 +128,7 @@ Transistors
 .\" ======================================================
 .PS
 
-showgrid(2,3)
+showgrid(2,2)
 move down 0.2 right 0.8
 {
   left; wire(2)
@@ -153,6 +153,18 @@ junc
 right
 wire(4)
 {wire(Here, Q1.E)}
+
+
+.PE
+
+.\" ======================================================
+Wires and Terminals
+.\" ======================================================
+
+.PS
+showgrid(1,1)
+
+{
 junc
 chassisground()
 wire(4)
@@ -161,8 +173,16 @@ signalground()
 wire(4)
 frameground()
 junc
-wire(4)
-elcap(C20,10uF,d)
-signalground()
+}
+
+move down 1
+right
+junc
+vpos(+5V)
+wire(4);junc
+vneg(-5V)
+
+
 
 .PE
+

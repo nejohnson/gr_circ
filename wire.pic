@@ -86,3 +86,31 @@ define chassisground {
 }
 
 ##########################################################
+
+# Power
+
+define vpos {
+  linethick = 1
+  {
+    up
+    line 0.2
+    move left 0.1
+    line thick 1.5 right 0.2
+    if("$1"!="") then {
+      "$1" at last line .c + (0,0.08)
+    }
+  }
+}
+
+define vneg {
+  linethick = 1
+  {
+    down
+    line 0.2
+    move left 0.1
+    line thick 1.5 right 0.2
+    if("$1"!="") then {
+      "$1" at last line .c - (0,0.11)
+    }
+  }
+}
