@@ -22,15 +22,15 @@ junc
 resistor(R1,1G,r)
 junc
 { right
-  wire(3);capacitor(C1,1n,r);wire(1)
+  wire(4);capacitor(C1,1n,r);wire(2)
   junc
   {wire(3);terminal(Vout+)}
   down
-  wire(1);capacitor(C2,10n,d);wire(1)
+  wire(2);capacitor(C2,10n,d);wire(2)
   junc;
   {right;wire(3);terminal(Vout-)}
   left;
-  wire(1);capacitor(C3,1u,l);wire(3)
+  wire(2);capacitor(C3,1u,l);wire(4)
   }
 resistor(R2,1M,d)
 junc
@@ -59,15 +59,16 @@ junc
   resistor(R1,,r)
   wire(2)
   capacitor(C1,,r)
+  wire(2)
   down
   wire(4)
 }
 { down
   wire(4)
   right
-  wire(1)
+  wire(2)
   capacitor(C2,,r)
-  wire(9)
+  wire(10)
   up
   wire(4)
 }
@@ -165,14 +166,24 @@ Wires and Terminals
 showgrid(1,1)
 
 {
+right
 junc
+{
+down; wire(2)
 chassisground()
+}
 wire(4)
 junc
+{
+down; wire(2)
 signalground()
+}
 wire(4)
-frameground()
 junc
+{
+down; wire(2)
+frameground()
+}
 }
 
 move down 1
