@@ -1,0 +1,42 @@
+.\" ======================================================
+.\" ## Pull in circuit library ##
+.\" ======================================================
+.PS
+copy "gr_circ.pic"
+.PE
+
+.\" ======================================================
+.
+.PS
+##showgrid(3,1)
+
+move down 0.6
+right
+terminal()
+wire(1)
+resistor(R,,r)
+junc
+{
+  down
+  capacitor(C1,,dl)
+  wire(1)
+  chassisground
+}
+wire(2)
+junc
+{
+  down
+  wire(4)
+  right
+  wire(1)
+  capacitor(C2,,r)
+  wire(1)
+  up
+  wire(4)
+}
+resistor(R,,r)
+junc
+wire(2)
+terminal()
+
+.PE
