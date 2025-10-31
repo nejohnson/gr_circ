@@ -19,7 +19,7 @@ move down 0.4
 right;
 terminal(Vin+,r); wire(3)
 junc
-resistor(R1,1G,r)
+wire(1);resistor(R1,1G,r);wire(1)
 junc
 { right
   wire(4);capacitor(C1,1n,r);wire(2)
@@ -31,13 +31,13 @@ junc
   {right;wire(3);terminal(Vout-)}
   left;
   wire(2);capacitor(C3,1u,l);wire(4)
-  }
-resistor(R2,1M,d)
+}
+down;wire(1);resistor(R2,1M,d);wire(1)
 junc
-resistor(R3,1k,l)
+left;wire(1);resistor(R3,1k,l)wire(1);
 junc
 {wire(3);terminal(Vin-)}
-resistor(R4,1,ul)
+up;wire(1);resistor(R4,1,ul);wire(1)
 
 .PE
 
@@ -56,7 +56,7 @@ junc
 { up
   wire(4)
   right
-  resistor(R1,,r)
+  wire(1);resistor(R1,,r);wire(1)
   wire(2)
   capacitor(C1,,r)
   wire(2)
@@ -72,9 +72,9 @@ junc
   up
   wire(4)
 }
-wire(5)
+wire(6)
 resistor(R2,,r)
-wire(3)
+wire(4)
 junc
 wire(2)
 terminal(B)
