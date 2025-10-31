@@ -41,10 +41,48 @@ define terminal {
   move to TRM.c
 }
 
+##########################################################
 
+# Signal ground
 
+define signalground {
+  {
+    down
+    linethick = 1
+    line 0.2
+    line right 0.1 then down 0.12 left 0.1 then up 0.12 left 0.1 then right 0.1
+  }
+}
 
+# Frame ground
 
+define frameground {
+  {
+    down
+    linethick = 1
+    line 0.2
+    move left 0.1
+    line right 0.2
+    for x = -0.2 to 0.2 by 0.1 do {
+      { line from Here to Here+(-0.03,-0.06) }
+      move left 0.05
+    }
+  }
+}
 
+# Chassis ground
 
+define chassisground {
+  {
+    down
+    linethick = 1
+    line 0.2
+    { move left 0.1; line right 0.2 }
+    move 0.05
+    { move left 0.055; line right 0.11 }
+    move 0.05
+    { move left 0.01; line right 0.02 }
+  }
+}
 
+##########################################################

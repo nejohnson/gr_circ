@@ -99,3 +99,134 @@ $1: [
 }
 
 ##########################################################
+
+## ELECTROLYTIC CAPACITORS ###############################
+
+# ========================================================
+# Interface
+# ========================================================
+
+define elcap {
+# $1 = name, C1
+# $2 = value, 1u
+# $3 = orientation, l,r,u,d
+
+  if ("$3" == "r" || "$3" == "l") then {
+    elcapH($1,$2,$3)
+  } else {
+    elcapV($1,$2,$3)
+  }
+}
+
+# ========================================================
+# Horizontal capacitors
+# ========================================================
+
+define elcapH {
+  if ($3 == "r") then {
+    capacitorR($1,$2,$3)
+  } else {
+    capacitorL($1,$2,$3)
+  }
+}
+
+# Horizontal rightwards ----------------------------------
+
+define elcapR {
+  linethick = 1
+  right
+  line 0.275
+  { move up 0.1; line thick 1.5 down 0.2; move up 0.1 }
+  box invis ht 0.1 wid 0.05
+  { move up 0.1; line thick 1.5 down 0.2; move up 0.1 }
+  if ($2 != "") then {
+    $1 at last box.n + (0,0.30)
+    $2 at last box.n + (0,0.15)
+  } else {
+    $1 at last box.n + (0,0.15)
+  }
+  line from last box.e 0.275
+}
+
+# Horizontal leftwards -----------------------------------
+
+define elcapL {
+  linethick = 1
+  left
+  line 0.275
+  { move up 0.1; line thick 1.5 down 0.2; move up 0.1 }
+  box invis ht 0.1 wid 0.05
+  { move up 0.1; line thick 1.5 down 0.2; move up 0.1 }
+  if ($2 != "") then {
+    $1 at last box.n + (0,0.30)
+    $2 at last box.n + (0,0.15)
+  } else {
+    $1 at last box.n + (0,0.15)
+  }
+  line from last box.w 0.275
+}
+
+# ========================================================
+# Vertical capacitors
+# ========================================================
+
+define elcapV {
+  if ("$3" == "d" || "$3" == "dl") then {
+    elcapD($1,$2,$3)
+  } else {
+    elcapU($1,$2,$3)
+  }
+}
+
+# Vertical downwards -------------------------------------
+
+define elcapD {
+  linethick = 1
+  down
+  line 0.26
+  box thick 0.7 wid 0.2 ht 0.03
+  {"+" at last box .nw +(0.01, 0.05)}
+  box invis ht 0.05 wid 0.1
+  { move left 0.1; line thick 1.5 right 0.2; move left 0.1 }
+  if ("$3" == "dl") then {
+    if ("$2" != "") then {
+      "$1" "$2" at last box.w - (0.2,0)
+    } else {
+      "$1" at last box.w - (0.2,0)
+    }
+  } else {
+    if ("$2" != "") then {
+      " $1" " $2" at last box.e + (0.2,0)
+    } else {
+      "$1" at last box.e + (0.2,0)
+    }
+  }
+  line from last box.s 0.26
+}
+
+# Vertical upwards ---------------------------------------
+
+define elcapU {
+  linethick = 1
+  up
+  line 0.275
+  { move left 0.1; line thick 1.5 right 0.2; move left 0.1 }
+  box invis ht 0.05 wid 0.1
+  { move left 0.1; line thick 1.5 right 0.2; move left 0.1 }
+  if ($3 == "ul") then {
+    if ($2 != "") then {
+      $1 $2 at last box.w - (0.2,0)
+    } else {
+      $1 at last box.w - (0.2,0)
+    }
+  } else {
+    if ($2 != "") then {
+      $1 $2 at last box.e + (0.2,0)
+    } else {
+      $1 at last box.e + (0.2,0)
+    }
+  }
+  line from last box.n 0.275
+}
+
+##########################################################
